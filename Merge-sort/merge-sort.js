@@ -1,43 +1,37 @@
 //Recursive merge sorting function
 function mergeSort(arr) {
-  let leftArr = [];
-  let rightArr = [];
   if (arr.length <= 1) return arr;
-  else {
-    const mid = Math.floor(arr.length / 2);
-    arr.forEach((elem, index) => {
-      index < mid ? leftArr.push(elem) : rightArr.push(elem);
-    });
-    leftArr = mergeSort(leftArr); //Recursive call for left and right arrays
-    rightArr = mergeSort(rightArr);
-    return merge(leftArr, rightArr);
-  }
+
+  const m = Math.floor(arr.length / 2);
+  const leftArr = arr.slice(0, m);
+  const rightArr = arr.slice(m);
+  return merge(mergeSort(leftArr), mergeSort(rightArr)); //Merging recursive call for left and right arrays
 }
 
 // Merging function
 function merge(leftArr, rightArr) {
   const resArr = [];
-  let lPointer = 0;
-  let rPointer = 0;
+  let lP = 0;
+  let rP = 0;
   // Pushing min values into resulting array from two arrays
-  while (lPointer < leftArr.length && rPointer < rightArr.length) {
-    if (leftArr[lPointer] <= rightArr[rPointer]) {
-      resArr.push(leftArr[lPointer]);
-      lPointer++;
+  while (lP < leftArr.length && rP < rightArr.length) {
+    if (leftArr[lP] <= rightArr[rP]) {
+      resArr.push(leftArr[lP]);
+      lP++;
     }
-    if (rightArr[rPointer] <= leftArr[lPointer]) {
-      resArr.push(rightArr[rPointer]);
-      rPointer++;
+    if (rightArr[rP] <= leftArr[lP]) {
+      resArr.push(rightArr[rP]);
+      rP++;
     }
   }
   // Pushing remained values
-  while (lPointer < leftArr.length) {
-    resArr.push(leftArr[lPointer]);
-    lPointer++;
+  while (lP < leftArr.length) {
+    resArr.push(leftArr[lP]);
+    lP++;
   }
-  while (rPointer < rightArr.length) {
-    resArr.push(rightArr[rPointer]);
-    rPointer++;
+  while (rP < rightArr.length) {
+    resArr.push(rightArr[rP]);
+    rP++;
   }
 
   return resArr;
